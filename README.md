@@ -4,6 +4,12 @@ Import chefkoch recipes to cookidoo via API call
 
 ## Getting started
 
+Install required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
 Log in to cookidoo and get the auth token from the `v-token` cookie (F12 in most current browsers). This token needs to either be given as `-jwt` command line parameter or exported as an environment variable called `COOKIDOO_JWT`.
 
 ```bash
