@@ -1,6 +1,35 @@
 # cookiput
 
-Create custom cookidoo recipes via API call
+Import chefkoch recipes to cookidoo via API call
+
+## Getting started
+
+Log in to cookidoo and get the auth token from the `v-token` cookie (F12 in most current browsers). This token needs to either be given as `-jwt` command line parameter or exported as an environment variable called `COOKIDOO_JWT`.
+
+```bash
+export COOKIDOO_JWT=eyXXXXXXX.....
+python CookidooImporter.py https://www.chefkoch.de/......html
+```
+
+## Usage
+
+```bash
+python CookidooImporter.py -h
+usage: CookidooImporter.py [-h] [-jwt JWT] url
+
+Cookidoo Importer
+
+positional arguments:
+  url         URL to import recipe from
+
+options:
+  -h, --help  show this help message and exit
+  -jwt JWT    JSON Web Token for authenticated access to cookidoo
+```
+
+## Developer access
+
+Each class can be used on its own to just download recipe data or to import the recipe to cookidoo, so other recipe homepages should be easy to scrape with a custom importer.
 
 ## API calls to create a recipe
 
