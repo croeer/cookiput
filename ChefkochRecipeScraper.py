@@ -29,8 +29,12 @@ class ChefkochRecipeScraper:
                 'title': soup.find('h1', class_='').text.strip(),
                 'ingredients': [],
                 'instructions': [],
+                'totaltime': "",
             }
             
+            timestr = soup.find('span', class_='recipe-preptime').text.replace('\ue192', '').replace('\n', '').replace('Min.','').strip()
+            recipe['totaltime'] = 60*int(timestr)
+
             ingredients_table = soup.find('table', class_='ingredients')
             if ingredients_table:
                 rows = ingredients_table.find_all('tr')
@@ -70,6 +74,7 @@ if __name__ == "__main__":
     try:
         recipe = scraper.scrape_recipe(args.url)
         print("Recipe Title:", recipe['title'])
+        print("est. total time (s): ", recipe['totaltime'])
         print("Ingredients:")
         for ingredient in recipe['ingredients']:
             print("- " + ingredient)

@@ -52,11 +52,9 @@ for step in recipe['instructions']:
     steps.append({"type": "STEP", "text": step})
 recipe_creator.add_steps(recipe_id, steps)
 
-# TODO
 # Step 4: Add tools, time, and yield information
-# tools = ["TM6"]
-# total_time = 4200
-# prep_time = 3900
-# yield_value = 4
-# yield_unit = "portion"
-# recipe_creator.add_tools_and_time(recipe_id, tools, total_time, prep_time, yield_value, yield_unit)
+tools = ["TM6"]
+total_time = recipe['totaltime']
+yield_value = 1
+yield_unit = "portion"
+recipe_creator.add_tools_and_time(recipe_id, tools, total_time, total_time, yield_value, yield_unit)
