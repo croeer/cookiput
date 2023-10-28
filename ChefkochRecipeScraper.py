@@ -1,4 +1,5 @@
 import requests
+import argparse
 from bs4 import BeautifulSoup
 import re
 
@@ -15,7 +16,10 @@ class ChefkochRecipeScraper:
         )
 
     def scrape_recipe(self, recipe_url):
-        url = f"{self.base_url}{recipe_url}"
+        url = recipe_url
+        if not recipe_url.startswith("https"):
+            url = f"{self.base_url}{recipe_url}"
+
         response = requests.get(url)
 
         if response.status_code == 200:
@@ -56,11 +60,16 @@ class ChefkochRecipeScraper:
 
 # Example usage:
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Chefkoch.de Recipe Scraper")
+    parser.add_argument("url", help="URL of the chefkoch recipe to scrape")
+
+    # Parse the command-line arguments
+    args = parser.parse_args()
+
     scraper = ChefkochRecipeScraper()
-    recipe_url = "/rezepte/1247411229689036/Pizza-Baellchen.html"  # Replace with the URL of the recipe you want to scrape
     
     try:
-        recipe = scraper.scrape_recipe(recipe_url)
+        recipe = scraper.scrape_recipe(args.url)
         print("Recipe Title:", recipe['title'])
         print("Ingredients:")
         for ingredient in recipe['ingredients']:
