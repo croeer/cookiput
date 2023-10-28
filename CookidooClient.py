@@ -79,7 +79,7 @@ if __name__ == "__main__":
     recipe_creator = CookiputRecipeCreator(jwt)
 
     # Step 1: Create a new recipe
-    recipe_id = recipe_creator.create_recipe("2My Awesome New Recipe")
+    recipe_id = recipe_creator.create_recipe("My Awesome New Recipe")
 
     if recipe_id is None:
         exit(-1)
