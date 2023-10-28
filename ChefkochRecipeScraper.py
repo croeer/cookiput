@@ -6,6 +6,14 @@ class ChefkochRecipeScraper:
     def __init__(self):
         self.base_url = "https://www.chefkoch.de"
     
+    def is_valid_div(self, element):
+        return (
+            element.name == "div" and
+            element.get("class") == ["ds-box"] and
+            all(tag.name == "br" and not tag.find_all() for tag in element.find_all("br")) and
+            not any(tag for tag in element.find_all() if tag.name != "br")
+        )
+
     def scrape_recipe(self, recipe_url):
         url = f"{self.base_url}{recipe_url}"
         response = requests.get(url)
@@ -17,8 +25,6 @@ class ChefkochRecipeScraper:
                 'title': soup.find('h1', class_='').text.strip(),
                 'ingredients': [],
                 'instructions': [],
-                # 'instructions': [step.text.strip() for step in soup.find_all('p', class_='instruction')],
-
             }
             
             ingredients_table = soup.find('table', class_='ingredients')
@@ -27,11 +33,24 @@ class ChefkochRecipeScraper:
                 for row in rows:
                     columns = row.find_all('td')
                     if len(columns) == 2:
-                        ingredient_quantity = re.sub("\s+", " ", columns[0].span.text.strip())
-                        ingredient_name = columns[1].span.text.strip()
+                        ingredient_quantity = re.sub("\s+", " ", columns[0].text.strip())
+                        ingredient_name = columns[1].text.strip()
                         recipe['ingredients'].append(f"{ingredient_quantity} {ingredient_name}")
             
+            instruction_divs = soup.find_all(self.is_valid_div)
+
+            # Parse the instruction divs
+            for div in instruction_divs:
+                text = div.get_text(separator=" ").strip()
+                parts = text.split("\n")
+                
+                for part in parts:
+                    if part.strip() == "":
+                        continue
+                    recipe['instructions'].append(part.strip())
+                                    
             return recipe
+        
         else:
             raise Exception(f"Failed to fetch recipe from {url}. Status code: {response.status_code}")
 
