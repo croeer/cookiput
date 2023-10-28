@@ -58,7 +58,6 @@ class ChefkochRecipeScraper:
         else:
             raise Exception(f"Failed to fetch recipe from {url}. Status code: {response.status_code}")
 
-# Example usage:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Chefkoch.de Recipe Scraper")
     parser.add_argument("url", help="URL of the chefkoch recipe to scrape")
