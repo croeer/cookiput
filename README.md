@@ -10,7 +10,7 @@ Install required dependencies:
 pip install -r requirements.txt
 ```
 
-Log in to cookidoo and get the auth token from the `v-token` cookie (F12 in most current browsers). This token needs to either be given as `-jwt` command line parameter or exported as an environment variable called `COOKIDOO_JWT`.
+Log in to cookidoo and get the auth token from the `_oauth2_proxy` cookie (F12 in most current browsers). This token needs to either be given as `-jwt` command line parameter or exported as an environment variable called `COOKIDOO_JWT`.
 
 ```bash
 export COOKIDOO_JWT=eyXXXXXXX.....
