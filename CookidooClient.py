@@ -58,6 +58,14 @@ class CookiputRecipeCreator:
             add_ingredients_url, json=data, headers=self.headers, cookies=self.cookies
         )
 
+    def add_hints(self, recipe_id, hints):
+        add_hints_url = f"{self.base_url}/created-recipes/de-DE/{recipe_id}"
+        data = {"hints": hints}
+
+        response = requests.patch(
+            add_hints_url, json=data, headers=self.headers, cookies=self.cookies
+        )
+
     def add_steps(self, recipe_id, steps):
         # Step 3: Add cooking steps
         add_steps_url = f"{self.base_url}/created-recipes/de-DE/{recipe_id}"
