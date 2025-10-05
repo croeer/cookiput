@@ -1,6 +1,7 @@
 import requests
 import argparse
 import os
+import time
 
 
 class CookiputRecipeCreator:
@@ -11,7 +12,7 @@ class CookiputRecipeCreator:
         self.headers = {
             "Accept": "application/json",
             "Content-Type": "application/json",
-            "User-Agent": "troet",
+            "User-Agent": "Mozilla",
         }
         self.cookies = {"_oauth2_proxy": jwt_token}
 
@@ -118,6 +119,9 @@ if __name__ == "__main__":
 
     if recipe_id is None:
         exit(-1)
+
+    print("Waiting for 5 seconds")
+    time.sleep(5)
 
     # Step 2: Add ingredients
     ingredients = [
